@@ -19,4 +19,6 @@ function serialize(rows::Vector{Vector{T}}) where T
     return output
 end
 
+include("FastCSV.jl")
+
 end # module
