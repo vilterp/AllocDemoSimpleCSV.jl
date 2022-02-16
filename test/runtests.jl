@@ -11,21 +11,25 @@ x = [collect(1:100) for i in 1:100]
 
     @testset "fast" begin
         # once to warm up...
-        SimpleCSV.Fast.serialize(stdout, x)
+        path, io = mktemp()
+        SimpleCSV.Fast.serialize(io, x)
 
         # ...and once under profiler
         Profile.Allocs.clear()
-        Profile.Allocs.@profile sample_rate=1 SimpleCSV.Fast.serialize(stdout, x)
+        path, io = mktemp()
+        @time Profile.Allocs.@profile sample_rate=1 SimpleCSV.Fast.serialize(io, x)
         PProf.Allocs.pprof(out="fast", web=false)
     end
 
     @testset "slow" begin
         # once to warm up...
-        SimpleCSV.Slow.serialize(stdout, x)
+        path, io = mktemp()
+        SimpleCSV.Slow.serialize(io, x)
 
         # ...and once under profiler
+        path, io = mktemp()
         Profile.Allocs.clear()
-        Profile.Allocs.@profile sample_rate=1 SimpleCSV.Slow.serialize(stdout, x)
+        @time Profile.Allocs.@profile sample_rate=1 SimpleCSV.Slow.serialize(io, x)
         PProf.Allocs.pprof(out="slow", web=false)
     end
 
