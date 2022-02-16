@@ -1,4 +1,4 @@
-module FastCSV
+module Fast
 
 function serialize(io::IO, rows::Vector{Vector{T}}) where T
     for row in rows
