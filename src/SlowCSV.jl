@@ -1,5 +1,9 @@
 module SlowCSV
 
+function serialize(io::IO, rows::Vector{Vector{T}}) where T
+    print(io, serialize(rows))
+end
+
 function serialize(rows::Vector{Vector{T}}) where T
     output = ""
     for row in rows
