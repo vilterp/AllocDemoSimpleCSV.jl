@@ -5,7 +5,7 @@ using Profile
 using PProf
 
 # x = [[1,2], [3,4]]
-x = [1:100 for i in 1:100]
+x = [collect(1:100) for i in 1:100]
 
 @testset "SimpleCSV" begin
 
@@ -25,7 +25,7 @@ x = [1:100 for i in 1:100]
 
         # ...and once under profiler
         Profile.Allocs.clear()
-        Profile.Allocs.@profile SimpleCSV.Slow.serialize(stdout, x)
+        Profile.Allocs.@profile sample_rate=1 SimpleCSV.Slow.serialize(stdout, x)
         PProf.Allocs.pprof(out="slow", web=false)
     end
 
