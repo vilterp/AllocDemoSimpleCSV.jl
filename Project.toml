@@ -1,0 +1,4 @@
+name = "SlowCSV"
+uuid = "b95e4a76-c4a5-4c97-b1d5-56f4fd6c913a"
+authors = ["Pete Vilter <pete.vilter@gmail.com>"]
+version = "0.1.0"
