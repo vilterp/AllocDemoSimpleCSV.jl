@@ -1,4 +1,4 @@
-using SimpleCSV
+using AllocDemoSimpleCSV
 
 using Test
 using Profile
@@ -6,29 +6,29 @@ using PProf
 
 x = [collect(1:100) for i in 1:100]
 
-@testset "SimpleCSV" begin
+@testset "AllocDemoSimpleCSV" begin
 
     @testset "slow" begin
         # once to warm up...
         path, io = mktemp()
-        SimpleCSV.Slow.serialize(io, x)
+        AllocDemoSimpleCSV.Slow.serialize(io, x)
 
         # ...and once under profiler
         path, io = mktemp()
         Profile.Allocs.clear()
-        @time Profile.Allocs.@profile sample_rate=1 SimpleCSV.Slow.serialize(io, x)
+        @time Profile.Allocs.@profile sample_rate=1 AllocDemoSimpleCSV.Slow.serialize(io, x)
         PProf.Allocs.pprof(out="slow", web=false)
     end
 
     @testset "fast" begin
         # once to warm up...
         path, io = mktemp()
-        SimpleCSV.Fast.serialize(io, x)
+        AllocDemoSimpleCSV.Fast.serialize(io, x)
 
         # ...and once under profiler
         Profile.Allocs.clear()
         path, io = mktemp()
-        @time Profile.Allocs.@profile sample_rate=1 SimpleCSV.Fast.serialize(io, x)
+        @time Profile.Allocs.@profile sample_rate=1 AllocDemoSimpleCSV.Fast.serialize(io, x)
         PProf.Allocs.pprof(out="fast", web=false)
     end
 

@@ -1,4 +1,4 @@
-module SimpleCSV
+module AllocDemoSimpleCSV
 
 include("fast.jl")
 include("slow.jl")
