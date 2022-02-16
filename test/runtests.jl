@@ -1,5 +1,7 @@
-using SlowCSV
+using SimpleCSV
 
 x = [[1,2], [3,4]]
 
-SlowCSV.serialize(stdout, x)
+@time SimpleCSV.Fast.serialize(stdout, x)
+
+@time SimpleCSV.Slow.serialize(stdout, x)
